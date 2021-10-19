@@ -9,7 +9,8 @@ const Services = () => {
 
     return (
         <section id="drugs">
-            <Row xs={1} md={3} className="g-5 m-5">
+            <h3 className="mt-5 mb-2">Check Out Some Common Drugs</h3>
+            <Row xs={1} md={3} className="g-5">
                 {
                     services.map(service => <Service
                                                 key={service.id} 

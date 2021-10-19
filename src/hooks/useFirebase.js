@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword  } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { useState, useEffect } from "react";
 import initializeAuthentication from "../pages/LogIn/Firebase/firebase.init";
 
@@ -22,22 +22,37 @@ const useFirebase = () => {
     }
     const handleRegistration = e => {
         e.preventDefault();
+        setIsLoading(true);
         if(password.length < 6) { 
             setError("Password must contain at least 6 characters.")
             return;
         }
-        if(/(?=.*[A-Z].*[A-Z])/.test(password)) { 
+        if(!/(?=.*[A-Z].*[A-Z])/.test(password)) { 
             setError("Password must contain at least 2 uppercase characters.")
             return;
         }
         createUserWithEmailAndPassword(auth, email, password)
             .then(result => {
                 setUser(result.user);
-                setError('')
+                setError('');
             })
             .catch(error => {
-                setError(error.message)
-            });
+                setError(error.message);
+            })
+            .finally(() => setIsLoading(false));
+    };
+    const handleLogIn = e => {
+        e.preventDefault();
+        setIsLoading(true);
+        signInWithEmailAndPassword(auth, email, password)
+            .then(result => {
+                setUser(result.user);
+                setError('');
+            })
+            .catch(error => {
+                setError(error.message);
+            })
+            .finally(() => setIsLoading(false));
     };
 
     const signInUsingGoogle = () => {
@@ -46,6 +61,10 @@ const useFirebase = () => {
         signInWithPopup(auth, googleProvider)
             .then(result => {
                 setUser(result.user);
+                setError('');
+            })
+            .catch(error => {
+                setError(error.message);
             })
             .finally(() => setIsLoading(false));
     }
@@ -78,6 +97,7 @@ const useFirebase = () => {
         handleEmailChange,
         handlePasswordChange,
         handleRegistration,
+        handleLogIn,
         logOut,
         error,
         isLoading
