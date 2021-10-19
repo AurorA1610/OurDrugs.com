@@ -1,26 +1,26 @@
 import React from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
+import './LogIn.css';
 
 const LogIn = () => {
-    const { signInUsingGoogle } = useAuth();
+    const { signInUsingGoogle, handleEmailChange, handlePasswordChange } = useAuth();
 
     return (
-        <div>
+        <div className="login-form">
             <div>
-                <h2 className="text-success">Please log in</h2>
+                <h2 className="text-success my-4">Please log in</h2>
                 <form>
-                    <input type="email" placeholder=" Email" /> <br />
-                    <input type="password" placeholder="Password" /> <br />
+                    <input onBlur={handleEmailChange} type="email" placeholder=" Email" /> <br /> <br />
+                    <input onBlur={handlePasswordChange} type="password" placeholder="Password" /> <br /> <br />
                     <input type="submit" value="submit" /> <br />
                 </form>
-                <p>New User? <Link to="/register">Create Account</Link></p>
+                <p className="mt-5">New User? <Link to="/register">Create Account</Link></p>
                 <hr />
                 <h6>Or, </h6>
                 <Button onClick={signInUsingGoogle} variant="warning">Sign In With Google</Button>
             </div>
-            
         </div>
     );
 };

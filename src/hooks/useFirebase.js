@@ -1,25 +1,60 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged, createUserWithEmailAndPassword  } from "firebase/auth";
 import { useState, useEffect } from "react";
 import initializeAuthentication from "../pages/LogIn/Firebase/firebase.init";
 
 initializeAuthentication();
 
 const useFirebase = () => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState('');
     const [user, setUser] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     const auth = getAuth();
 
+
+    const handleEmailChange = e => {
+        setEmail(e.target.value);
+    }
+    const handlePasswordChange = e => {
+        setPassword(e.target.value);
+    }
+    const handleRegistration = e => {
+        e.preventDefault();
+        if(password.length < 6) { 
+            setError("Password must contain at least 6 characters.")
+            return;
+        }
+        if(/(?=.*[A-Z].*[A-Z])/.test(password)) { 
+            setError("Password must contain at least 2 uppercase characters.")
+            return;
+        }
+        createUserWithEmailAndPassword(auth, email, password)
+            .then(result => {
+                setUser(result.user);
+                setError('')
+            })
+            .catch(error => {
+                setError(error.message)
+            });
+    };
+
     const signInUsingGoogle = () => {
+        setIsLoading(true);
         const googleProvider = new GoogleAuthProvider();
         signInWithPopup(auth, googleProvider)
             .then(result => {
                 setUser(result.user);
-            });
+            })
+            .finally(() => setIsLoading(false));
     }
 
     const logOut = () => {
+        setIsLoading(true);
         signOut(auth)
-            .then(() => {});
+            .then(() => {})
+            .finally(() => setIsLoading(false));
     };
 
     // observe user state change
@@ -31,6 +66,7 @@ const useFirebase = () => {
             else {
                 setUser({});
             }
+            setIsLoading(false);
         });
 
         return () => unsubscribed;
@@ -38,9 +74,13 @@ const useFirebase = () => {
 
     return {
         user,
-        setUser,
         signInUsingGoogle,
-        logOut
+        handleEmailChange,
+        handlePasswordChange,
+        handleRegistration,
+        logOut,
+        error,
+        isLoading
     }
 };
 
