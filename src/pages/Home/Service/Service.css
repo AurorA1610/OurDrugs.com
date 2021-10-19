@@ -1,3 +1,10 @@
 .service {
-    height: 480px;
+    height: 200px;
+    background-color: rgb(253, 235, 212);
+}
+
+@media only screen and (max-width:688px)  {
+    .service {
+        height: auto;
+    }
 }

@@ -8,7 +8,7 @@ const Services = () => {
     const [services, setServices] = useServices([]);
 
     return (
-        <section>
+        <section id="drugs">
             <Row xs={1} md={3} className="g-5 m-5">
                 {
                     services.map(service => <Service
