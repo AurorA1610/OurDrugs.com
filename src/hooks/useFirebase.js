@@ -1,4 +1,4 @@
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, updateProfile, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, updateProfile, sendEmailVerification, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from "firebase/auth";
 import { useState, useEffect } from "react";
 import initializeAuthentication from "../pages/LogIn/Firebase/firebase.init";
 
@@ -19,9 +19,19 @@ const useFirebase = () => {
 
     const auth = getAuth();
 
+    // verifying email
+    const verifyEmail = () => {
+        setIsLoading(true);
+        setError('');
+        sendEmailVerification(auth.currentUser).then(result => {});
+    }
 
+    // reset password
+    const handleResetPassword = () => {
+        sendPasswordResetEmail(auth, email).then(result => {})
+    }
 
-    // Registering with Email and Password
+    // register with email and password
     const handleEmailChange = e => {
         setEmail(e.target.value);
     }
@@ -51,6 +61,7 @@ const useFirebase = () => {
             .then(result => {
                 setUser(result.user);
                 setError('');
+                verifyEmail();
                 setUserName();
             })
             .catch(error => {
@@ -59,7 +70,7 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false));
     };
 
-    // registering with email and password
+    // log in with email and password
     const handleLogIn = e => {
         e.preventDefault();
         setIsLoading(true);
@@ -125,6 +136,7 @@ const useFirebase = () => {
         handleEmailChange,
         handlePasswordChange,
         handleRegistration,
+        handleResetPassword,
         handleLogIn,
         logOut,
         error,

@@ -5,7 +5,7 @@ import useAuth from '../../../hooks/useAuth';
 import './LogIn.css';
 
 const LogIn = () => {
-    const { signInUsingGoogle, handleEmailChange, handlePasswordChange, handleLogIn, error } = useAuth();
+    const { signInUsingGoogle, handleEmailChange, handlePasswordChange, handleLogIn, handleResetPassword, error } = useAuth();
 
     return (
         <div className="login-form">
@@ -15,8 +15,9 @@ const LogIn = () => {
                     <input onBlur={handleEmailChange} type="email" placeholder=" Email" /> <br /> <br />
                     <input onBlur={handlePasswordChange} type="password" placeholder="Password" /> <br /> <br />
                     <div className="text-danger">{error}</div>  <br />
-                    <input type="submit" value="submit" /> <br />
+                    <input type="submit" value="submit" /> <br /> <br />
                 </form>
+                <Button onClick={handleResetPassword} variant="primary">Reset Password</Button>
                 <p className="mt-5">New User? <Link to="/register">Create Account</Link></p>
                 <hr />
                 <h6>Or, </h6>
