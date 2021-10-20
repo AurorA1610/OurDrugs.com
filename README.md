@@ -6,6 +6,9 @@ OurDrugs.com
 
 [ https://healthcare-drugs.web.app/]( https://healthcare-drugs.web.app/)
 
+# Live Site
+This website is related to drugs used in healthcare. React, Firebase, React-router-dom are used to make the website.
+
 # Features
 * The Header has Routes to different pages and different sections of the Home page.
 * The Home page has cards showing different drugs and their respective information.
