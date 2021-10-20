@@ -4,13 +4,14 @@ import { Link } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
 
 const Register = () => {
-    const { signInUsingGoogle, handleRegistration, handleEmailChange, handlePasswordChange, error } = useAuth();
+    const { signInUsingGoogle, handleRegistration, handleNameChange, handleEmailChange, handlePasswordChange, error } = useAuth();
 
     return (
         <div className="login-form">
             <div>
                 <h2 className="text-success my-4">Please Register</h2>
                 <form onSubmit={handleRegistration}>
+                    <input required onBlur={handleNameChange} type="text" placeholder="Enter Your Name" /> <br /> <br />
                     <input required onBlur={handleEmailChange} type="email" placeholder="Enter Your Email" /> <br /> <br />
                     <input required onBlur={handlePasswordChange} type="password" placeholder="Enter A Password" /> <br /> <br />
                     <div className="text-danger">{error}</div>  <br />

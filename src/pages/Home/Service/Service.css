@@ -3,6 +3,7 @@
     background-color: rgb(253, 235, 212);
 }
 
+/* mobile respinsiveness */
 @media only screen and (max-width:688px)  {
     .service {
         height: auto;

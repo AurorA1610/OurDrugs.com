@@ -27,7 +27,7 @@ const ServiceDetails = () => {
             <img className="img-fluid border border-1 my-5 rounded" src={singleService?.img} alt="" />
             <p><b>Brand Names: </b>{singleService?.brands}</p>
             <p className="fs-5"><b>Drug Class: </b>{singleService?.drugClass}</p>
-            <p className="fs-4 text-info w-50 mx-auto border p-2 border-3 rounded">{singleService?.description}</p>
+            <p className="fs-4 text-info w-50 mx-auto border my-3 p-2 border-3 rounded">{singleService?.description}</p>
             <p className="fs-5 w-50 mx-auto text-start "><b className="text-danger">Side Effects: </b>{singleService?.sideEffects}</p>
             
         </div>

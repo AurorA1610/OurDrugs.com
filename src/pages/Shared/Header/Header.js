@@ -28,7 +28,7 @@ const Header = () => {
                     <Navbar.Text className="ms-md-5">
                         {
                             user?.email ? 
-                            <h6><img width="50" height="50" className="rounded-circle me-2" src={user.photoURL} alt="" />{user.displayName}</h6>
+                            <h6>{user.displayName}</h6>
                             :
                             <></>
                         }
