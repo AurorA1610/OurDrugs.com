@@ -10,6 +10,8 @@ import Register from './pages/LogIn/Register/Register';
 import AuthProvider from './contexts/AuthProvider';
 import PrivateRoute from './pages/LogIn/PrivateRoute/PrivateRoute';
 import Footer from './pages/Shared/Footer/Footer';
+import Stores from './pages/Stores/Stores/Stores';
+import Support from './pages/Support/Support';
 
 function App() {
   return (
@@ -26,6 +28,12 @@ function App() {
             </Route>
             <PrivateRoute path="/service/:serviceId">
               <ServiceDetails></ServiceDetails>
+            </PrivateRoute>
+            <PrivateRoute path="/stores">
+              <Stores></Stores>
+            </PrivateRoute>
+            <PrivateRoute path="/support">
+              <Support></Support>
             </PrivateRoute>
             <Route path="/login">
               <LogIn></LogIn>
